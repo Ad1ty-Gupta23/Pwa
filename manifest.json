@@ -1,0 +1,15 @@
+{
+    "short_name": "PWA",
+    "name": "Daily task",
+    "start_url": "http://localhost:5173/",
+    "display": "standalone",
+    "theme_color": "#ffffff",
+    "background_color": "#000000",
+    "icons": [
+      {
+        "src": "/icons/to-do-list-flat-icon-free-vector.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
