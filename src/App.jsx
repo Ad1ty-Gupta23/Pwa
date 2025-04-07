@@ -1,94 +1,52 @@
-import { useState } from 'react'
-import './App.css'
-import InstallPWA from './components/InstallPWA';
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
+import Home from './pages/Home';
+import TodosPage from './pages/TodosPage';
+import CategoriesPage from './pages/CategoriesPage';
+import SettingsPage from './pages/SettingsPage';
+import InstallButton from './components/InstallButton';
+import './App.css';
 
 function App() {
-  const [todos, setTodos] = useState([])
-  const [inputValue, setInputValue] = useState('')
-  
-  // Add a new todo
-  const addTodo = () => {
-    if (inputValue.trim() !== '') {
-      const newTodo = {
-        id: Date.now(),
-        text: inputValue,
-        completed: false
-      }
-      setTodos([...todos, newTodo])
-      setInputValue('')
+  // Check for dark mode on initial load
+  useEffect(() => {
+    const darkMode = localStorage.getItem('darkMode') === 'true';
+    if (darkMode) {
+      document.body.classList.add('dark-mode');
     }
-  }
-  
-  // Toggle todo completion status
-  const toggleTodo = (id) => {
-    setTodos(todos.map(todo => 
-      todo.id === id ? { ...todo, completed: !todo.completed } : todo
-    ))
-  }
-  
-  // Delete a todo
-  const deleteTodo = (id) => {
-    setTodos(todos.filter(todo => todo.id !== id))
-  }
-  
-  // Handle input change
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value)
-  }
-  
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    addTodo()
-  }
+  }, []);
 
   return (
-    <div className="todo-app">
-      <h1>Todo List</h1>
-      
-      <form onSubmit={handleSubmit} className="todo-form">
-        <input 
-          type="text" 
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Add a new task..."
-          className="todo-input"
-        />
-        <button type="submit" className="add-button">Add</button>
-      </form>
-      
-      <div className="todo-list">
-        {todos.length === 0 ? (
-          <p className="empty-message">No tasks yet. Add one above!</p>
-        ) : (
-          todos.map(todo => (
-            <div key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-              <input
-                type="checkbox"
-                checked={todo.completed}
-                onChange={() => toggleTodo(todo.id)}
-                className="todo-checkbox"
-              />
-              <span className="todo-text">{todo.text}</span>
-              <button 
-                onClick={() => deleteTodo(todo.id)}
-                className="delete-button"
-              >
-                Delete
-              </button>
-            </div>
-          ))
-        )}
-      </div>
-      
-      {todos.length > 0 && (
-        <div className="todo-stats">
-          <p>{todos.filter(todo => !todo.completed).length} tasks remaining</p>
+    <Router>
+      <div className="app-container">
+        <header>
+          <h1>Daily Tasks</h1>
+        </header>
+        
+        <nav>
+          <ul>
+            <li><NavLink to="/" end>Home</NavLink></li>
+            <li><NavLink to="/todos">Tasks</NavLink></li>
+            <li><NavLink to="/categories">Categories</NavLink></li>
+            <li><NavLink to="/settings">Settings</NavLink></li>
+          </ul>
+        </nav>
+        
+        <main className="card">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/todos" element={<TodosPage />} />
+            <Route path="/categories" element={<CategoriesPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
+          </Routes>
+        </main>
+        
+        <div className="floating-install">
+          <InstallButton />
         </div>
-      )}
-      <InstallPWA />
-    </div>
-  )
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;

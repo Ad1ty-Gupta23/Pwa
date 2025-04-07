@@ -1,6 +1,6 @@
 {
-    "short_name": "React PWA",
-    "name": "My React Progressive Web App",
+    "short_name": "PWA",
+    "name": "Daily task",
     "start_url": "http://localhost:5173/",
     "display": "standalone",
     "theme_color": "#ffffff",

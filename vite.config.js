@@ -8,7 +8,7 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'My React App',
+        name: 'Progress Tracker',
         short_name: 'ReactPWA',
         description: 'My PWA with React and Vite',
         theme_color: '#ffffff',
