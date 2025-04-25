@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import TodosPage from './pages/TodosPage';
 import CategoriesPage from './pages/CategoriesPage';
 import SettingsPage from './pages/SettingsPage';
+import OfflinePage from './pages/OfflinePage';
 import InstallButton from './components/InstallButton';
 import './App.css';
 
@@ -17,7 +18,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    <Router basename="/Pwa">
       <div className="app-container">
         <header>
           <h1>Daily Tasks</h1>
@@ -38,6 +39,7 @@ function App() {
             <Route path="/todos" element={<TodosPage />} />
             <Route path="/categories" element={<CategoriesPage />} />
             <Route path="/settings" element={<SettingsPage />} />
+            <Route path="/offline" element={<OfflinePage />} />
           </Routes>
         </main>
         
